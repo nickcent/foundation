@@ -5,6 +5,9 @@
 #   brew install neovim lazygit lazydocker yazi gdu direnv eza fzf zoxide starship
 #
 
+zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+autoload -Uz compinit && compinit -C # basic tab completion
+
 alias vi=nvim
 alias lzg=lazygit
 alias lzd=lazydocker
@@ -19,24 +22,16 @@ alias ga="git add"
 alias gcam="git commit --all --message"
 
 
-# enable vim motions in shell text
-set -o vi
+set -o vi # enable vim motions in shell text
 
 export API_TIMEOUT_MS=900000 
 
-## fzf h4x...
-# 1. Load fzf integration first
 source <(fzf --zsh)
-
-# 2. Set environment variables (order here is less critical, but good for organization)
 export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
-
-# 3. Override completion functions LAST to ensure they take precedence
 _fzf_compgen_path() {
   fd --hidden --follow --exclude ".git" . "$1"
 }
-
 _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
