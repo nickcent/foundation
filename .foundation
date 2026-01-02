@@ -2,11 +2,12 @@
 #
 # foundation...
 #
-#   brew install neovim lazygit lazydocker yazi gdu direnv eza fzf zoxide starship
+#   brew install neovim lazygit lazydocker yazi gdu direnv eza fzf zoxide carapace starship
 #
 
 zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
-autoload -Uz compinit && compinit -C # basic tab completion
+autoload -Uz compinit && compinit -C
+source <(carapace _carapace)
 
 alias vi=nvim
 alias lzg=lazygit
