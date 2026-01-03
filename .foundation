@@ -5,7 +5,11 @@
 #   brew install neovim lazygit lazydocker yazi gdu direnv eza fzf zoxide carapace starship
 #
 
-zstyle ':completion:*' matcher-list '' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+autoload -Uz edit-command-line
+zle -N edit-command-line
+bindkey '^X^E' edit-command-line
+
 autoload -Uz compinit && compinit -C
 source <(carapace _carapace)
 
@@ -25,6 +29,7 @@ alias gcam="git commit --all --message"
 
 set -o vi # enable vim motions in shell text
 
+export EDITOR=vi
 export API_TIMEOUT_MS=900000 
 
 source <(fzf --zsh)

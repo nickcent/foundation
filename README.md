@@ -18,3 +18,12 @@ complete following:
 
 no need to repeat sourcing foundation tools from `./zshrc`
 
+## roadmap
+
+1. neovim distro (e.g. [astronvim](https://astronvim.com/) or [lazyvim](https://www.lazyvim.org/))
+2. developer tools
+3. dotfile customization
+4. terminal multiplexer (e.g. [tmux](https://github.com/tmux/tmux/wiki) or [zellij](https://zellij.dev/))
+5. containerization (e.g. [docker](https://www.docker.com/))
+6. servers and services -- cloud vs local
+
