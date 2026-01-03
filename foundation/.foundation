@@ -44,18 +44,10 @@ gcam() {
   diff="$(git diff --cached)"
 
   msg="$(
-    printf "<diff>\n%s\n</diff>\n" "$diff" | claude -p \
-"You are an expert software developer writing a concise, informative git commit message.
-Analyze the provided git diff enclosed in <diff> tags.
-Use conventional commits.
-First line under 50 chars.
-Optional bullet body with why + key details.
-Return only the commit message.
-No markdown/code fences (no \`\`\`)." \
-    --output-format text
+    printf "<diff>\n%s\n</diff>" "$diff" | claude -p \
+      "Write a commit message for this diff." \
+      --output-format text
   )" || return 1
-
-  msg="$(printf "%s\n" "$msg" | sed '/^```/d')"
 
   tmp="$(mktemp "${TMPDIR:-/tmp}/gcam.XXXXXX")" || return 1
   trap 'rm -f "$tmp"' EXIT INT TERM
