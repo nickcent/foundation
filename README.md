@@ -7,13 +7,15 @@ base set of cli/tui tools for GST!!!
 complete following:
 
 0. install [homebrew](https://brew.sh/)
-1. `cp .foundation ~/.foundation`
-2. `echo source ~/.foundation >> ~/.zshrc`
-3. enjoy!
+1. `brew install stow neovim lazygit lazydocker yazi gdu direnv eza fzf zoxide carapace starship` 
+2. `stow --target $HOME foundation`
+3. `echo source ~/.foundation >> ~/.zshrc`
+4. `source ~/.zshrc`
+4. enjoy!
 
 ## update
 
-1. `cp .foundation ~/.foundation`
+1. `stow foundation`
 2. enjoy!
 
 no need to repeat sourcing foundation tools from `./zshrc`
