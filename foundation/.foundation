@@ -18,19 +18,19 @@ bindkey '^X^E' edit-command-line
 autoload -Uz compinit && compinit -C
 source <(carapace _carapace)
 
-alias vi=nvim
-alias lzg=lazygit
-alias lzd=lazydocker
-alias y=yazi
+alias ga="git add"
+alias gd="git diff"
 alias gdu=gdu-go
-alias ls="eza --git-ignore"
+alias gp="git push"
+alias grep=rg
+alias gst="git status"
 alias la="ls -lah"
 alias lat="la -T"
-alias gst="git status"
-alias gd="git diff"
-alias gp="git push"
-alias ga="git add"
-#alias gcam="git commit --all --message"
+alias ls="eza --git-ignore"
+alias lzd=lazydocker
+alias lzg=lazygit
+alias vi=nvim
+alias y=yazi
 unalias gcam 2>/dev/null
 gcam() {
   git add -A

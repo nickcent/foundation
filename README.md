@@ -24,6 +24,7 @@ no need to repeat sourcing foundation tools from `./zshrc`
 
 ## roadmap
 
+1. snippents support (e.g. [espanso](https://espanso.org/), [textpander $$](http://textexpander.com/))
 1. neovim distro (e.g. [astronvim](https://astronvim.com/) or [lazyvim](https://www.lazyvim.org/))
 2. developer tools
 3. dotfile customization
