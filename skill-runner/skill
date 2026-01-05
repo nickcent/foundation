@@ -184,9 +184,11 @@ class SkillRunner:
         self,
         model: str = "claude-sonnet-4-20250514",
         max_turns: int = 1,
+        temperature: float = 0.0,
     ):
         self.model = model
         self.max_turns = max_turns
+        self.temperature = temperature
 
     def gather_input(self, command: str) -> str:
         """Execute a shell command to gather input."""
@@ -209,11 +211,22 @@ class SkillRunner:
                 )
         return resolved
 
+    def _temperature_prompt(self) -> str | None:
+        """Map temperature to behavior instruction (SDK workaround)."""
+        if self.temperature < 0.3:
+            return "Be precise and deterministic. Give the most straightforward answer."
+        elif self.temperature < 0.7:
+            return "Balance precision with some creative variation."
+        elif self.temperature <= 1.0:
+            return "Be creative and exploratory in your response."
+        return None
+
     async def _query(self, prompt: str) -> str:
         """Run a query via Claude Code SDK."""
         options = ClaudeCodeOptions(
             model=self.model,
             max_turns=self.max_turns,
+            append_system_prompt=self._temperature_prompt(),
         )
 
         result_parts = []
@@ -267,6 +280,10 @@ def run(
         str,
         typer.Option("--model", "-m", help="Model to use"),
     ] = "claude-sonnet-4-20250514",
+    temperature: Annotated[
+        float,
+        typer.Option("--temperature", "-t", help="Sampling temperature (0.0-1.0)"),
+    ] = 0.0,
     raw: Annotated[
         bool,
         typer.Option("--raw", "-r", help="Raw output without formatting"),
@@ -293,7 +310,7 @@ def run(
         stdin_content = sys.stdin.read()
 
     try:
-        runner = SkillRunner(model=model)
+        runner = SkillRunner(model=model, temperature=temperature)
         result = runner.run(skill_name, inputs=input_dict, stdin=stdin_content)
         if raw:
             console.print(result, highlight=False, soft_wrap=True)
