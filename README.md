@@ -36,7 +36,7 @@ no need to repeat sourcing foundation tools from `./zshrc`
 
 ## roadmap
 
-1. snippents support (e.g. neovim schema-driven json completion vs system-wide [espanso](https://espanso.org/), [textpander $$](http://textexpander.com/)) triggered via via keyboard shortcuts using [hammerspoon](https://www.hammerspoon.org/)(https://www.hammerspoon.org/)
+1. snippets support (e.g. neovim schema-driven completion vs system-wide [espanso](https://espanso.org/) with keyboard shortcuts via [hammerspoon](https://www.hammerspoon.org/))
 2. neovim distro (e.g. [astronvim](https://astronvim.com/) or [lazyvim](https://www.lazyvim.org/))
 3. developer tools
 4. dotfile personalization
