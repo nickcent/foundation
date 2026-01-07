@@ -37,8 +37,8 @@ no need to repeat sourcing foundation tools from `./zshrc`
 ## roadmap
 
 1. snippets support (e.g. neovim schema-driven completion vs system-wide [espanso](https://espanso.org/) with keyboard shortcuts via [hammerspoon](https://www.hammerspoon.org/))
-2. neovim distro (e.g. [astronvim](https://astronvim.com/) or [lazyvim](https://www.lazyvim.org/))
-3. developer tools
+2. neovim distro (e.g. [lazyvim](https://www.lazyvim.org/))
+3. developer tools spectrum and toolchain management (e.g. stow -> nix)
 4. dotfile personalization
 5. terminal multiplexer (e.g. [tmux](https://github.com/tmux/tmux/wiki) or [zellij](https://zellij.dev/))
 6. containerization (e.g. [docker](https://www.docker.com/))
