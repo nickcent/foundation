@@ -19,7 +19,7 @@ export H4X=$HOME/h4x
 now complete complete setup as following:
 
 1. install [homebrew](https://brew.sh)
-2. `brew install ghostty espanso stow neovim lazygit lazydocker yazi gdu direnv eza fzf atuin zoxide carapace starship` 
+2. `brew install ghostty espanso stow neovim lazygit lazydocker yazi gdu direnv eza fzf atuin zoxide carapace starship jq yq bat` 
 3. `brew install --cask claude-code`
 4. `stow --target $HOME stow foundation gcam ghostty espanso`
 5. `echo source ~/.foundation >> ~/.zshrc`
