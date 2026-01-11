@@ -34,6 +34,13 @@ alias lzg=lazygit
 alias vi=nvim
 alias y=yazi
 
+function fupd() {
+    echo "updating foundation tools..."
+    brew update > /dev/null 2>&1 && brew upgrade > /dev/null 2>&1
+    uv self update > /dev/null 2>&1
+    claude update > /dev/null 2>&1
+}
+
 set -o vi # enable vim motions in shell text
 
 export EDITOR=nvim

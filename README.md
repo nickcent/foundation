@@ -45,6 +45,16 @@ now complete complete setup as following:
 
 6. restart ghostty and enjoy!
 
+*reminder: periodically run `fupd` to keep foundation tools up-to-date...*
+
+## rationale
+
+why foundation? we want to optimize the things we need to do most often,
+reallocate our "thinking" to real tasks, not custodial tasks. here's a summary
+of the core foundation tools:
+
+1. tbd
+
 ## roadmap
 
 1. project and time tracking (e.g. [taskwarrior](https://taskwarrior.org/),
@@ -66,3 +76,4 @@ now complete complete setup as following:
 [aerospace](https://github.com/nikitabobko/AeroSpace))
 9. containerization (e.g. [docker](https://www.docker.com/))
 10. servers and services -- cloud vs local
+11. create skill to keep tools docs referenced above up-to-date
