@@ -115,7 +115,7 @@ of the core foundation tools:
 5. [raycast](https://www.raycast.com/) as spotlight replacement, ai,
 application shortcuts
 6. [superwhisper](https://superwhisper.com/) +
-[macrowhisper](https://github.com/ognistik/macrowhisper/issues) for voice user
+[macrowhisper](https://github.com/ognistik/macrowhisper) for voice user
 interface (vui)
 7. developer tools spectrum and toolchain management (e.g. stow -> nix)
 8. dotfile personalization
