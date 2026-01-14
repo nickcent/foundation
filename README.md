@@ -125,3 +125,7 @@ interface (vui)
 10. containerization (e.g. [docker](https://www.docker.com/))
 11. servers and services -- cloud vs local
 12. create skill to keep tools docs referenced above up-to-date
+
+## considerations
+
+1. add `.editorconfig` to `.envrc` for repo defaults
