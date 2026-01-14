@@ -59,42 +59,44 @@ of the core foundation tools:
     processor, memory, disks, network, and processes
 4. [carapace](https://github.com/carapace-sh/carapace-bin) - multi-shell
     completion binary for POSIX and non-POSIX shells
-5. [claude-code](https://github.com/anthropics/claude-code) - agentic coding
+5. [clipboard](https://github.com/Slackadays/Clipboard) - cut, copy, and paste
+    anything, anywhere, all from the terminal
+6. [claude-code](https://github.com/anthropics/claude-code) - agentic coding
     tool that lives in your terminal and understands your codebase
-6. [direnv](https://github.com/direnv/direnv) - loads and unloads environment
+7. [direnv](https://github.com/direnv/direnv) - loads and unloads environment
     variables based on current directory
-7. [espanso](https://github.com/espanso/espanso) - privacy-first,
+8. [espanso](https://github.com/espanso/espanso) - privacy-first,
     cross-platform text expander written in Rust
-8. [eza](https://github.com/eza-community/eza) - modern ls replacement with
+9. [eza](https://github.com/eza-community/eza) - modern ls replacement with
     colors, symlinks, and Git integration
-9. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
+10. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
     fuzzy finder
-10. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
+11. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
     console interface written in Go
-11. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
+12. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
     terminal emulator with GPU acceleration
-12. [git](https://github.com/git/git) - distributed version control system
-13. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
+13. [git](https://github.com/git/git) - distributed version control system
+14. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
     processor
-14. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
+15. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
     powerful keyboard customization tool for macOS
-15. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
+16. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
     terminal UI for Docker and Docker Compose
-16. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
+17. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
     for git commands
-17. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
+18. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
     extensibility and usability
-18. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
+19. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
     customizable prompt for any shell
-19. [stow](https://github.com/aspiers/stow) - symlink farm manager for
+20. [stow](https://github.com/aspiers/stow) - symlink farm manager for
     dotfiles
-20. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
+21. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
     project manager written in Rust
-21. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
+22. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
     manager written in Rust
-22. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
+23. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
     XML, CSV, and TOML processor
-23. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
+24. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
     remembers frequently visited directories
 
 ## roadmap
