@@ -19,6 +19,8 @@ autoload -Uz compinit && compinit -C
 source <(carapace _carapace)
 
 alias f=yazi
+alias ffplay='ffplay -loglevel quiet -nodisp'
+alias fffplay='ffplay -loglevel quiet -af "atempo=1.5" -nodisp'
 alias ga="git add"
 alias gcam="ga . && ../foundation/skill-runner/skill run commit-messager | pbcopy && git commit && gp"
 alias gd="git diff"

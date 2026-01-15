@@ -69,34 +69,36 @@ of the core foundation tools:
     cross-platform text expander written in Rust
 9. [eza](https://github.com/eza-community/eza) - modern ls replacement with
     colors, symlinks, and Git integration
-10. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
+10. [ffmpeg](https://github.com/FFmpeg/FFmpeg) - complete, cross-platform
+    solution to record, convert, and stream audio and video
+11. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
     fuzzy finder
-11. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
+12. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
     console interface written in Go
-12. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
+13. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
     terminal emulator with GPU acceleration
-13. [git](https://github.com/git/git) - distributed version control system
-14. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
+14. [git](https://github.com/git/git) - distributed version control system
+15. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
     processor
-15. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
+16. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
     powerful keyboard customization tool for macOS
-16. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
+17. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
     terminal UI for Docker and Docker Compose
-17. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
+18. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
     for git commands
-18. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
+19. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
     extensibility and usability
-19. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
+20. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
     customizable prompt for any shell
-20. [stow](https://github.com/aspiers/stow) - symlink farm manager for
+21. [stow](https://github.com/aspiers/stow) - symlink farm manager for
     dotfiles
-21. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
+22. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
     project manager written in Rust
-22. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
+23. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
     manager written in Rust
-23. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
+24. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
     XML, CSV, and TOML processor
-24. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
+25. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
     remembers frequently visited directories
 
 ## roadmap
