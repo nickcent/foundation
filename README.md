@@ -121,12 +121,13 @@ application shortcuts
 interface (vui)
 7. developer tools spectrum and toolchain management (e.g. stow -> nix)
 8. dotfile personalization
-9. terminal multiplexer (e.g. [tmux](https://github.com/tmux/tmux/wiki) or
+9. secure, shared secrets (e.g. [pass](https://www.passwordstore.org/))
+10. terminal multiplexer (e.g. [tmux](https://github.com/tmux/tmux/wiki) or
 [zellij](https://zellij.dev/)) vs tiling manager (e.g.
 [aerospace](https://github.com/nikitabobko/AeroSpace))
-10. containerization (e.g. [docker](https://www.docker.com/))
-11. servers and services -- cloud vs local
-12. create skill to keep tools docs referenced above up-to-date
+11. containerization (e.g. [docker](https://www.docker.com/))
+12. servers and services -- cloud vs local
+13. create skill to keep tools docs referenced above up-to-date
 
 ## considerations
 
