@@ -21,7 +21,7 @@ now complete complete setup as following:
 2. install foundation tools
 
     ```bash
-    brew bundle install -f ./Brewfile
+    brew bundle
     ```
 
 3. install lazyvim distro to supercharge stock neovim
