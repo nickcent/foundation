@@ -17,14 +17,20 @@ export H4X=$HOME/h4x
 
 now complete complete setup as following:
 
-1. install [homebrew](https://brew.sh)
-2. install foundation tools
+1. clone foundation repo into `$H4X` folder
+2. install [homebrew](https://brew.sh)
+
+    ```bash
+    git clone https://github.com/dirkleas/foundation
+    ```
+
+3. install foundation tools
 
     ```bash
     brew bundle
     ```
 
-3. install lazyvim distro to supercharge stock neovim
+4. install lazyvim distro to supercharge stock neovim
 
     ```bash
     mv ~/.config/nvim{,.bak} > /dev/null
@@ -32,8 +38,8 @@ now complete complete setup as following:
     rm -rf ~/.config/nvim/.git
     ```
 
-4. run espanso and karabiner apps, considering default prompts
-5. configure foundation tools
+5. run espanso and karabiner apps, considering default prompts
+6. configure foundation tools
 
     ```bash
     stow --target $HOME stow foundation lazyvim direnv gcam ghostty espanso karabiner
@@ -41,7 +47,7 @@ now complete complete setup as following:
     espanso service register # considering default prompts
     ```
 
-6. restart ghostty and enjoy!
+7. restart ghostty and enjoy!
 
 *reminder: periodically run `fupd` to keep foundation tools up-to-date...*
 
