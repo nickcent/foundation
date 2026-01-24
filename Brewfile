@@ -25,5 +25,4 @@ brew "yq"
 brew "zoxide"
 
 # Casks - sorted alphabetically
-cask "claude-code"
 cask "karabiner-elements"
