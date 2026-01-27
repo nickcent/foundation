@@ -70,43 +70,47 @@ of the core foundation tools:
     anything, anywhere, all from the terminal
 6. [direnv](https://github.com/direnv/direnv) - loads and unloads environment
     variables based on current directory
-7. [espanso](https://github.com/espanso/espanso) - privacy-first,
+7. [dvc](https://github.com/iterative/dvc) - version control for large files
+    like media and datasets with cloud storage backends
+8. [espanso](https://github.com/espanso/espanso) - privacy-first,
     cross-platform text expander written in Rust
-8. [eza](https://github.com/eza-community/eza) - modern ls replacement with
+9. [eza](https://github.com/eza-community/eza) - modern ls replacement with
     colors, symlinks, and Git integration
-9. [ffmpeg](https://github.com/FFmpeg/FFmpeg) - complete, cross-platform
+10. [ffmpeg](https://github.com/FFmpeg/FFmpeg) - complete, cross-platform
     solution to record, convert, and stream audio and video
-10. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
+11. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
     fuzzy finder
-11. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
+12. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
     console interface written in Go
-12. [gh](https://github.com/cli/cli) - GitHub's official command line tool
-13. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
+13. [gh](https://github.com/cli/cli) - GitHub's official command line tool
+14. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
     terminal emulator with GPU acceleration
-14. [git](https://github.com/git/git) - distributed version control system
-15. [git-lfs](https://github.com/git-lfs/git-lfs) - Git extension for
+15. [git](https://github.com/git/git) - distributed version control system
+16. [git-lfs](https://github.com/git-lfs/git-lfs) - Git extension for
     versioning large files
-16. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
+17. [jj](https://github.com/jj-vcs/jj) - Git-compatible VCS that is both
+    simple and powerful
+18. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
     processor
-17. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
+19. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
     powerful keyboard customization tool for macOS
-18. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
+20. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
     terminal UI for Docker and Docker Compose
-19. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
+21. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
     for git commands
-20. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
+22. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
     extensibility and usability
-21. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
+23. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
     customizable prompt for any shell
-22. [stow](https://github.com/aspiers/stow) - symlink farm manager for
+24. [stow](https://github.com/aspiers/stow) - symlink farm manager for
     dotfiles
-23. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
+25. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
     project manager written in Rust
-24. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
+26. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
     manager written in Rust
-25. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
+27. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
     XML, CSV, and TOML processor
-26. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
+28. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
     remembers frequently visited directories
 
 ## roadmap
