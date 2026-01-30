@@ -137,19 +137,21 @@ homebrew managed tools:
     terminal UI for Docker and Docker Compose
 20. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
     for git commands
-21. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
+21. [lazyjj](https://github.com/Cretezy/lazyjj) - simple terminal UI for
+    Jujutsu/jj version control
+22. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
     extensibility and usability
-22. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
+23. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
     customizable prompt for any shell
-23. [stow](https://github.com/aspiers/stow) - symlink farm manager for
+24. [stow](https://github.com/aspiers/stow) - symlink farm manager for
     dotfiles
-24. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
+25. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
     project manager written in Rust
-25. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
+26. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
     manager written in Rust
-26. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
+27. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
     XML, CSV, and TOML processor
-27. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
+28. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
     remembers frequently visited directories
 
 uv managed tools:
