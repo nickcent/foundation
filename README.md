@@ -59,16 +59,16 @@ now complete complete setup as following:
     ```
 
 2. install [homebrew](https://brew.sh)
-3. install foundation tools:
+3. install foundation tools managed by homebrew:
 
     ```bash
     brew bundle
     ```
 
-4. install dvc:
+4. install foundation tools managed by uv:
 
     ```bash
-    uv tool install dvc
+    uv tool install "dvc[gdrive]"
     ```
 
 5. install [claude-code](https://code.claude.com/docs/en/setup)

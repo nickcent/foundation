@@ -3,7 +3,7 @@ name: update-tool-docs
 description: Update README.md tools section and fupd() function with documentation and upgrades for brew and uv managed tools
 ---
 
-Update the README.md tools section to document tools from Brewfile (brew managed) and uv tool list (uv managed). Also updates the `fupd()` function in `foundation/.foundation` to include sorted uv tool upgrade commands. Short-circuits if no changes needed.
+Update the README.md tools section to document tools from Brewfile (brew managed) and uv tool list (uv managed). Also updates the README.md setup section with `uv tool install` commands and the `fupd()` function in `foundation/.foundation` with `uv tool upgrade` commands. Short-circuits if no changes needed.
 
 ## Step 1: Check if Work is Required
 
@@ -11,10 +11,11 @@ Read/gather data from:
 1. **Brewfile**: Extract all tool names from `brew "toolname"` and `cask "toolname"` lines
 2. **uv tool list**: Run `uv tool list` to get installed uv tools (format: `toolname vX.Y.Z`)
 3. **README.md tools section**: Extract tool names from both numbered lists (homebrew managed and uv managed). For uv tools with extras, parse `[tool-name](url)\[extra\]` format and extract as `tool-name[extra]`
-4. **foundation/.foundation fupd()**: Extract `uv tool upgrade <toolname>` commands from the fupd() function (may include extras like `dvc[gdrive]`)
+4. **README.md setup section**: Extract `uv tool install` commands (may include extras like `"dvc[gdrive]"`)
+5. **foundation/.foundation fupd()**: Extract `uv tool upgrade <toolname>` commands from the fupd() function (may include extras like `"dvc[gdrive]"`)
 
 Compare these lists:
-- If all Brewfile tools are documented AND Brewfile is sorted AND all uv tools are documented AND uv tools section is sorted AND fupd() has all uv tool upgrades sorted, report "No changes needed" and **exit early**
+- If all Brewfile tools are documented AND Brewfile is sorted AND all uv tools are documented AND uv tools section is sorted AND README.md setup section has correct uv tool install commands AND fupd() has all uv tool upgrades sorted, report "No changes needed" and **exit early**
 - Otherwise, continue to Step 2
 
 ## Step 2: Parse and Sort Brewfile
@@ -89,7 +90,8 @@ Example of wrapped entry:
 1. Write the sorted Brewfile if changes were needed
 2. Merge new brew/cask tool docs into "homebrew managed tools:" section, maintaining alphabetical order
 3. Merge new uv tool docs into "uv managed tools:" section, maintaining alphabetical order
-4. Update `fupd()` in `foundation/.foundation` with sorted uv tool upgrade commands
+4. Update README.md setup section with `uv tool install` commands for all uv managed tools
+5. Update `fupd()` in `foundation/.foundation` with sorted uv tool upgrade commands
 
 Both sections in README.md follow the same format under "## tools":
 ```markdown
@@ -117,9 +119,9 @@ function fupd() {
     brew update && brew upgrade
     nvim --headless "+Lazy! update" +qa
     uv self update
-    uv tool upgrade dvc[gdrive]
+    uv tool upgrade "dvc[gdrive]"
     uv tool upgrade tool-b
-    uv tool upgrade tool-c
+    uv tool upgrade "tool-c[extra]"
     claude update
 }
 ```
@@ -127,11 +129,31 @@ function fupd() {
 Rules for fupd():
 - Place `uv tool upgrade` commands immediately after `uv self update`
 - Sort tool names alphabetically (by base tool name, e.g., `dvc[gdrive]` sorts as `dvc`)
-- For tools with extras, use full specifier: `uv tool upgrade dvc[gdrive]`
+- For tools with extras, use double quotes: `uv tool upgrade "dvc[gdrive]"`
+- Tools without extras don't need quotes: `uv tool upgrade tool-name`
 - Keep `claude update` as the last command
+
+The README.md setup section should include `uv tool install` commands for each uv managed tool.
+Look for the numbered setup steps and update the uv tool installation step(s) to match the
+current uv managed tools list:
+
+```markdown
+4. install uv managed tools:
+
+    ```bash
+    uv tool install "dvc[gdrive]"
+    uv tool install another-tool
+    ```
+```
+
+Rules for setup section:
+- For tools with extras, use double quotes: `uv tool install "dvc[gdrive]"`
+- Tools without extras don't need quotes: `uv tool install tool-name`
+- List each tool on its own line within the code block
+- Keep the step description generic (e.g., "install uv managed tools:")
 
 ## Output
 
 Report:
 - "No changes needed" if short-circuited
-- Otherwise: number of new tools documented (brew and uv separately), number of uv tool upgrades added to fupd(), any tools where documentation could not be found
+- Otherwise: number of new tools documented (brew and uv separately), whether setup section was updated, number of uv tool upgrades added to fupd(), any tools where documentation could not be found
