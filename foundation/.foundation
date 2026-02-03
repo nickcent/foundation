@@ -13,11 +13,13 @@ setopt EXTENDED_HISTORY
 
 autoload -Uz edit-command-line
 zle -N edit-command-line
-bindkey '^X^E' edit-command-line
+bindkey -M viins '^X^E' edit-command-line
+bindkey -M vicmd '^X^E' edit-command-line
 
 autoload -Uz compinit && compinit -C
 source <(carapace _carapace)
 
+alias c=clear
 alias f=yazi
 alias ffplay='ffplay -loglevel quiet -nodisp -autoexit'
 alias fffplay='ffplay -loglevel quiet -af "atempo=1.5" -nodisp -autoexit'
