@@ -1,0 +1,60 @@
+# Ghostty Configuration
+# Run `ghostty +show-config --default --docs` to view a list of
+# all available config options and their default values.
+#
+# Additionally, each config option is also explained in detail
+# on Ghostty's website, at https://ghostty.org/docs/config.
+
+font-size = 16
+# background = 000000
+# background = "3a3a3a"
+ foreground = 33CC33
+# keybind = shift+enter=text:\x1b\r
+
+# === Your Favorited Themes ===
+# theme = "Alien Blood"
+ theme = "Atelier Sulphurpool"
+# theme = "Aurora"
+# theme = "Venom"
+# theme = "Blue Matrix"
+# theme = "Ayu Light"
+# theme = "Konsolas"
+# theme = "Lab Fox"
+
+# === Additional Light Mode Themes ===
+# theme = "Atom One Light"
+# theme = "Belafonte Day"
+# theme = "Bluloco Light"
+# theme = "Bright Lights"
+# theme = "Dawnfox"
+# theme = "Dayfox"
+# theme = "Everforest Light Med"
+# theme = "Flexoki Light"
+# theme = "GitHub Light Default"
+# theme = "Gruvbox Light"
+
+
+
+
+
+  font-family = "JetBrainsMono Nerd Font"
+# font-family = "Oxanium"
+# font-family = "Special Elite"
+
+
+window-save-state = always
+
+background-opacity = 0.51
+
+background-blur-radius = 29
+window-title-font-family = "MonoLisa Variable"
+
+focus-follows-mouse = true
+
+shell-integration-features = ssh-terminfo
+
+
+
+keybind = super+c=copy_to_clipboard
+keybind = super+v=paste_from_clipboard
+keybind = shift+enter=text:\n

@@ -68,7 +68,6 @@ _fzf_compgen_dir() {
 }
 
 eval "$(atuin init zsh)"
-eval "$(zoxide init zsh --cmd cd)"
 eval "$(direnv hook zsh)"
 eval "$(starship init zsh)"
 
