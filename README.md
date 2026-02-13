@@ -115,45 +115,49 @@ homebrew managed tools:
     cross-platform text expander written in Rust
 8. [eza](https://github.com/eza-community/eza) - modern ls replacement with
     colors, symlinks, and Git integration
-9. [ffmpeg](https://github.com/FFmpeg/FFmpeg) - complete, cross-platform
+9. [fastfetch](https://github.com/fastfetch-cli/fastfetch) - feature-rich,
+    performance-oriented system information tool
+10. [ffmpeg](https://github.com/FFmpeg/FFmpeg) - complete, cross-platform
     solution to record, convert, and stream audio and video
-10. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
+11. [fzf](https://github.com/junegunn/fzf) - general-purpose command-line
     fuzzy finder
-11. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
+12. [gdu](https://github.com/dundee/gdu) - fast disk usage analyzer with
     console interface written in Go
-12. [gh](https://github.com/cli/cli) - GitHub's official command line tool
-13. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
+13. [gh](https://github.com/cli/cli) - GitHub's official command line tool
+14. [ghostty](https://github.com/ghostty-org/ghostty) - fast, feature-rich
     terminal emulator with GPU acceleration
-14. [git](https://github.com/git/git) - distributed version control system
-15. [git-lfs](https://github.com/git-lfs/git-lfs) - Git extension for
+15. [git](https://github.com/git/git) - distributed version control system
+16. [git-lfs](https://github.com/git-lfs/git-lfs) - Git extension for
     versioning large files
-16. [jj](https://github.com/jj-vcs/jj) - Git-compatible VCS that is both
+17. [jj](https://github.com/jj-vcs/jj) - Git-compatible VCS that is both
     simple and powerful
-17. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
+18. [jq](https://github.com/jqlang/jq) - lightweight command-line JSON
     processor
-18. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
+19. [karabiner-elements](https://github.com/pqrs-org/Karabiner-Elements) -
     powerful keyboard customization tool for macOS
-19. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
+20. [lazydocker](https://github.com/jesseduffield/lazydocker) - simple
     terminal UI for Docker and Docker Compose
-20. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
+21. [lazygit](https://github.com/jesseduffield/lazygit) - simple terminal UI
     for git commands
-21. [lazyjj](https://github.com/Cretezy/lazyjj) - simple terminal UI for
+22. [lazyjj](https://github.com/Cretezy/lazyjj) - simple terminal UI for
     Jujutsu/jj version control
-22. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
+23. [neovim](https://github.com/neovim/neovim) - Vim-fork focused on
     extensibility and usability
-23. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
+24. [starship](https://github.com/starship/starship) - minimal, blazing-fast,
     customizable prompt for any shell
-24. [stow](https://github.com/aspiers/stow) - symlink farm manager for
+25. [stow](https://github.com/aspiers/stow) - symlink farm manager for
     dotfiles
-25. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
+26. [tldr](https://github.com/tldr-pages/tldr) - simplified,
+    community-driven man pages with practical examples
+27. [uv](https://github.com/astral-sh/uv) - extremely fast Python package and
     project manager written in Rust
-26. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
+28. [yazi](https://github.com/sxyazi/yazi) - blazing fast terminal file
     manager written in Rust
-27. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
+29. [yq](https://github.com/mikefarah/yq) - portable command-line YAML, JSON,
     XML, CSV, and TOML processor
-28. [zellij](https://github.com/zellij-org/zellij) - terminal workspace and
+30. [zellij](https://github.com/zellij-org/zellij) - terminal workspace and
     multiplexer with batteries included, written in Rust
-29. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
+31. [zoxide](https://github.com/ajeetdsouza/zoxide) - smarter cd command that
     remembers frequently visited directories
 
 uv managed tools:
