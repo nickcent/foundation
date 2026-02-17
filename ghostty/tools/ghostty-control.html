@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ghostty Control Panel</title>
+<style>
+  :root {
+    --bg: #1a1a2e;
+    --bg2: #16213e;
+    --bg3: #0f3460;
+    --accent: #e94560;
+    --accent2: #533483;
+    --text: #eee;
+    --text-dim: #999;
+    --border: #333;
+    --success: #4ade80;
+    --warn: #fbbf24;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'SF Pro', system-ui, sans-serif;
+    font-weight: 500;
+    -webkit-font-smoothing: antialiased;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    padding: 2rem;
+  }
+  h1 {
+    font-size: 1.8rem;
+    margin-bottom: 0.3rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .subtitle { color: var(--text-dim); margin-bottom: 1.2rem; font-size: 0.9rem; }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    max-width: 1100px;
+  }
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.5rem;
+  }
+  .card h2 {
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .card.full { grid-column: 1 / -1; }
+
+  /* Slider */
+  .slider-row { display: flex; align-items: center; gap: 1rem; }
+  .slider-row + .slider-row { margin-top: 0.8rem; }
+  .slider-label { color: var(--text-dim); font-size: 0.85rem; min-width: 60px; font-weight: 600; }
+  input[type="range"] {
+    flex: 1; -webkit-appearance: none; height: 6px;
+    border-radius: 3px; background: var(--bg3); outline: none;
+  }
+  input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; width: 20px; height: 20px; border-radius: 50%;
+    background: var(--accent); cursor: pointer; box-shadow: 0 0 8px rgba(233,69,96,0.5);
+  }
+  .slider-val {
+    font-size: 1.4rem; font-weight: 700; min-width: 4ch;
+    text-align: right; font-variant-numeric: tabular-nums;
+  }
+
+  /* Color picker */
+  .color-section { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  input[type="color"] {
+    -webkit-appearance: none; width: 48px; height: 48px;
+    border: 2px solid var(--border); border-radius: 8px; cursor: pointer;
+    background: none; padding: 2px;
+  }
+  input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+  input[type="color"]::-webkit-color-swatch { border: none; border-radius: 6px; }
+  .hex-input {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); padding: 0.5rem 0.7rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; width: 110px;
+  }
+  .color-presets { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-top: 0.8rem; }
+  .color-preset {
+    width: 28px; height: 28px; border-radius: 6px;
+    border: 2px solid transparent; cursor: pointer; transition: border-color 0.15s, transform 0.15s;
+  }
+  .color-preset:hover { transform: scale(1.15); border-color: var(--text); }
+
+  /* Font selector */
+  .font-row { display: flex; gap: 1rem; align-items: center; flex-wrap: wrap; }
+  .font-select {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); padding: 0.5rem 0.7rem; font-size: 0.9rem; flex: 1; min-width: 180px;
+  }
+
+  /* Theme */
+  .theme-controls { display: flex; gap: 0.8rem; margin-bottom: 1rem; flex-wrap: wrap; }
+  .search-input {
+    flex: 1; min-width: 200px; background: var(--bg);
+    border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); padding: 0.6rem 0.8rem; font-size: 0.9rem;
+  }
+  .search-input::placeholder { color: var(--text-dim); }
+  .filter-btn {
+    padding: 0.5rem 1rem; border-radius: 8px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text-dim); cursor: pointer;
+    font-size: 0.8rem; font-weight: 600; transition: all 0.15s;
+  }
+  .filter-btn.active, .filter-btn:hover {
+    background: var(--accent); color: #fff; border-color: var(--accent);
+  }
+  .theme-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.5rem; max-height: 380px; overflow-y: auto; padding-right: 0.5rem;
+  }
+  .theme-grid::-webkit-scrollbar { width: 6px; }
+  .theme-grid::-webkit-scrollbar-track { background: var(--bg); border-radius: 3px; }
+  .theme-grid::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+  .theme-item {
+    padding: 0.5rem 0.7rem; border-radius: 8px; border: 1px solid var(--border);
+    cursor: pointer; font-size: 0.82rem; font-weight: 500; transition: all 0.15s;
+    display: flex; align-items: center; gap: 0.5rem;
+  }
+  .theme-item:hover { border-color: var(--accent); background: rgba(233,69,96,0.1); }
+  .theme-item.active { border-color: var(--accent); background: rgba(233,69,96,0.2); font-weight: 600; }
+  .theme-item.fav .theme-name::before { content: "\u2605 "; color: gold; }
+  .theme-name { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+  .theme-swatches { display: flex; gap: 2px; flex-shrink: 0; }
+  .theme-swatch { width: 12px; height: 12px; border-radius: 3px; }
+  .theme-count { color: var(--text-dim); font-size: 0.8rem; }
+
+  /* Actions bar */
+  .action-bar {
+    display: flex; gap: 0.8rem; align-items: center; flex-wrap: wrap;
+    max-width: 1100px; margin-bottom: 1.5rem;
+  }
+  .btn {
+    padding: 0.6rem 1.3rem; border-radius: 8px; border: none;
+    font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: all 0.15s;
+  }
+  .btn-primary { background: var(--accent); color: #fff; }
+  .btn-primary:hover { filter: brightness(1.15); }
+  .btn-secondary { background: var(--bg3); color: var(--text); }
+  .btn-secondary:hover { filter: brightness(1.3); }
+  .btn-sm { padding: 0.4rem 0.8rem; font-size: 0.8rem; }
+  .status { font-size: 0.85rem; color: var(--text-dim); margin-left: auto; }
+  .status.ok { color: var(--success); }
+  .status.err { color: var(--accent); }
+
+  /* Config display */
+  .current-config {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem;
+    color: var(--text-dim); background: var(--bg2); border: 1px solid var(--border);
+    padding: 1rem; border-radius: 8px; white-space: pre; overflow-x: auto;
+    max-width: 1100px; margin-bottom: 1.5rem; display: none;
+  }
+
+  /* Backups panel */
+  .backup-list { max-height: 150px; overflow-y: auto; margin-top: 0.5rem; }
+  .backup-item {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0.4rem 0.6rem; border-radius: 6px; font-size: 0.8rem;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .backup-item:hover { background: rgba(255,255,255,0.05); }
+
+  /* Presets */
+  .preset-bar { display: flex; gap: 0.5rem; flex-wrap: wrap; align-items: center; }
+  .preset-chip {
+    padding: 0.4rem 0.9rem; border-radius: 20px; border: 1px solid var(--border);
+    background: var(--bg); color: var(--text); cursor: pointer;
+    font-size: 0.82rem; font-weight: 600; transition: all 0.15s; display: flex; align-items: center; gap: 0.4rem;
+  }
+  .preset-chip:hover { border-color: var(--accent); }
+  .preset-chip .delete-preset {
+    font-size: 0.7rem; opacity: 0.5; cursor: pointer; margin-left: 0.2rem;
+  }
+  .preset-chip .delete-preset:hover { opacity: 1; color: var(--accent); }
+  .preset-save-row { display: flex; gap: 0.5rem; margin-top: 0.5rem; }
+  .preset-name-input {
+    background: var(--bg); border: 1px solid var(--border); border-radius: 8px;
+    color: var(--text); padding: 0.4rem 0.7rem; font-size: 0.85rem; flex: 1;
+  }
+
+  /* Auto mode toggle */
+  .auto-mode-row {
+    display: flex; align-items: center; gap: 0.8rem; margin-top: 0.8rem;
+    padding-top: 0.8rem; border-top: 1px solid var(--border);
+  }
+  .toggle { position: relative; width: 40px; height: 22px; cursor: pointer; }
+  .toggle input { opacity: 0; width: 0; height: 0; }
+  .toggle .slider {
+    position: absolute; inset: 0; background: var(--bg3);
+    border-radius: 11px; transition: 0.2s;
+  }
+  .toggle .slider::before {
+    content: ""; position: absolute; width: 16px; height: 16px;
+    left: 3px; bottom: 3px; background: var(--text-dim);
+    border-radius: 50%; transition: 0.2s;
+  }
+  .toggle input:checked + .slider { background: var(--accent); }
+  .toggle input:checked + .slider::before { transform: translateX(18px); background: #fff; }
+  .auto-label { font-size: 0.85rem; color: var(--text-dim); font-weight: 600; }
+
+  /* Preview */
+  .preview-box {
+    border-radius: 10px; padding: 1rem 1.2rem;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.85rem;
+    line-height: 1.6; min-height: 120px; border: 1px solid var(--border);
+    position: relative; overflow: hidden;
+  }
+  .preview-box .preview-bg { position: absolute; inset: 0; border-radius: 10px; }
+  .preview-box .preview-content { position: relative; z-index: 1; }
+  .preview-cursor { animation: blink 1s step-end infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+</style>
+</head>
+<body>
+
+<h1>Ghostty Control Panel</h1>
+<p class="subtitle">Config: ~/.config/ghostty/config</p>
+
+<!-- Action bar at top -->
+<div class="action-bar">
+  <button class="btn btn-primary" onclick="applyConfig()">Apply</button>
+  <button class="btn btn-secondary" onclick="resetToFile()">Reset</button>
+  <button class="btn btn-secondary" onclick="toggleConfig()">Show Config</button>
+  <button class="btn btn-secondary" onclick="toggleBackups()">Backups</button>
+  <span class="status" id="status"></span>
+</div>
+<div class="current-config" id="configDisplay"></div>
+<div class="current-config" id="backupPanel" style="white-space:normal"></div>
+
+<div class="grid">
+  <!-- Opacity, Blur, Font -->
+  <div class="card">
+    <h2>Appearance</h2>
+    <div class="slider-row">
+      <span class="slider-label">Opacity</span>
+      <input type="range" id="opacity" min="0" max="100" value="51">
+      <span class="slider-val" id="opacityVal">0.51</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Blur</span>
+      <input type="range" id="blur" min="0" max="100" value="29">
+      <span class="slider-val" id="blurVal" style="font-size:1.2rem">29</span>
+    </div>
+    <div class="slider-row">
+      <span class="slider-label">Font Size</span>
+      <input type="range" id="fontSize" min="8" max="36" value="16">
+      <span class="slider-val" id="fontSizeVal" style="font-size:1.2rem">16</span>
+    </div>
+    <div class="font-row" style="margin-top:0.8rem">
+      <span class="slider-label">Font</span>
+      <select class="font-select" id="fontFamily"></select>
+    </div>
+  </div>
+
+  <!-- Colors -->
+  <div class="card">
+    <h2>Colors</h2>
+    <div class="color-section">
+      <div>
+        <label style="color:var(--text-dim);font-size:0.8rem;display:block;margin-bottom:4px">Background</label>
+        <input type="color" id="bgColor" value="#000000">
+      </div>
+      <input type="text" class="hex-input" id="bgHex" value="#000000" placeholder="#000000">
+      <div>
+        <label style="color:var(--text-dim);font-size:0.8rem;display:block;margin-bottom:4px">Foreground</label>
+        <input type="color" id="fgColor" value="#33CC33">
+      </div>
+      <input type="text" class="hex-input" id="fgHex" value="#33CC33" placeholder="#33CC33">
+    </div>
+    <div class="color-presets" id="bgPresets"></div>
+  </div>
+
+  <!-- Presets -->
+  <div class="card full">
+    <h2>Presets</h2>
+    <div class="preset-bar" id="presetBar"></div>
+    <div class="preset-save-row">
+      <input type="text" class="preset-name-input" id="presetName" placeholder="Preset name...">
+      <button class="btn btn-secondary btn-sm" onclick="savePreset()">Save Current</button>
+    </div>
+    <div class="auto-mode-row">
+      <label class="toggle">
+        <input type="checkbox" id="autoMode">
+        <span class="slider"></span>
+      </label>
+      <span class="auto-label">Auto dark/light</span>
+      <select class="font-select" id="darkPreset" style="min-width:120px;flex:0">
+        <option value="">Dark preset...</option>
+      </select>
+      <select class="font-select" id="lightPreset" style="min-width:120px;flex:0">
+        <option value="">Light preset...</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Themes -->
+  <div class="card full">
+    <h2>Themes <span class="theme-count" id="themeCount"></span></h2>
+    <div class="theme-controls">
+      <input type="text" class="search-input" id="themeSearch" placeholder="Search themes...">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="fav">Favorites</button>
+      <button class="filter-btn" data-filter="dark">Dark</button>
+      <button class="filter-btn" data-filter="light">Light</button>
+    </div>
+    <div class="theme-grid" id="themeGrid"></div>
+  </div>
+
+  <!-- Preview -->
+  <div class="card full">
+    <h2>Preview</h2>
+    <div class="preview-box" id="preview">
+      <div class="preview-bg" id="previewBg"></div>
+      <div class="preview-content" id="previewContent">
+<span style="color:#4ade80">nick@ghost</span>:<span style="color:#60a5fa">~/projects</span>$ ls -la
+drwxr-xr-x  5 nick  staff  160 Feb 17 09:30 .
+-rw-r--r--  1 nick  staff  842 Feb 17 09:28 main.py
+-rw-r--r--  1 nick  staff  324 Feb 17 09:15 config.toml
+<span style="color:#4ade80">nick@ghost</span>:<span style="color:#60a5fa">~/projects</span>$ <span class="preview-cursor">_</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const ALL_THEMES = THEME_LIST_PLACEHOLDER;
+const ALL_FONTS = FONT_LIST_PLACEHOLDER;
+
+const FAVORITES = [
+  "Alien Blood", "Atelier Sulphurpool", "Aurora", "Blue Matrix",
+  "Ayu Light", "Konsolas", "Lab Fox"
+];
+
+const BG_PRESETS = [
+  '#000000', '#0d1117', '#1a1a2e', '#1e1e2e', '#282a36',
+  '#2e3440', '#1d2021', '#fdf6e3', '#f5f5f5', '#263238',
+  '#0c0c0c', '#191724', '#24273a', '#1f1d2e', '#3a3a3a'
+];
+
+let state = {
+  opacity: 0.51, blur: 29, bgColor: '#000000', fgColor: '#33CC33',
+  theme: 'Atelier Sulphurpool', useCustomBg: false,
+  fontFamily: 'JetBrainsMono Nerd Font', fontSize: 16
+};
+let themeColors = {};
+let presets = {};
+let autoModeInterval = null;
+
+// ── Init ──
+document.addEventListener('DOMContentLoaded', async () => {
+  populateFonts();
+  await Promise.all([loadCurrentConfig(), loadThemeColors(), loadPresets()]);
+  renderBgPresets();
+  renderThemes();
+  setupListeners();
+  updatePreview();
+});
+
+function populateFonts() {
+  const sel = document.getElementById('fontFamily');
+  ALL_FONTS.forEach(f => {
+    const opt = document.createElement('option');
+    opt.value = f;
+    opt.textContent = f;
+    sel.appendChild(opt);
+  });
+}
+
+function renderBgPresets() {
+  const container = document.getElementById('bgPresets');
+  container.innerHTML = BG_PRESETS.map(c =>
+    `<div class="color-preset" style="background:${c}" data-color="${c}" title="${c}"></div>`
+  ).join('');
+  container.querySelectorAll('.color-preset').forEach(el => {
+    el.addEventListener('click', () => {
+      state.bgColor = el.dataset.color;
+      state.useCustomBg = true;
+      document.getElementById('bgColor').value = state.bgColor;
+      document.getElementById('bgHex').value = state.bgColor;
+      updatePreview();
+    });
+  });
+}
+
+function renderThemes(filter = 'all', search = '') {
+  const grid = document.getElementById('themeGrid');
+  let themes = ALL_THEMES;
+  if (search) {
+    const q = search.toLowerCase();
+    themes = themes.filter(t => t.toLowerCase().includes(q));
+  }
+  if (filter === 'fav') themes = themes.filter(t => FAVORITES.includes(t));
+  else if (filter === 'dark') themes = themes.filter(t => !/(light|day|dawn|latte)/i.test(t));
+  else if (filter === 'light') themes = themes.filter(t => /(light|day|dawn|latte)/i.test(t));
+
+  document.getElementById('themeCount').textContent = `(${themes.length})`;
+
+  grid.innerHTML = themes.map(t => {
+    const isFav = FAVORITES.includes(t);
+    const isActive = t === state.theme;
+    const tc = themeColors[t] || {};
+    let swatchHtml = '';
+    if (tc.swatches && tc.swatches.length) {
+      swatchHtml = '<span class="theme-swatches">' +
+        tc.swatches.map(c => `<span class="theme-swatch" style="background:${c}"></span>`).join('') +
+        '</span>';
+    } else if (tc.bg || tc.fg) {
+      swatchHtml = '<span class="theme-swatches">';
+      if (tc.bg) swatchHtml += `<span class="theme-swatch" style="background:${tc.bg}"></span>`;
+      if (tc.fg) swatchHtml += `<span class="theme-swatch" style="background:${tc.fg}"></span>`;
+      swatchHtml += '</span>';
+    }
+    return `<div class="theme-item${isActive ? ' active' : ''}${isFav ? ' fav' : ''}" data-theme="${t}">
+      <span class="theme-name">${t}</span>${swatchHtml}
+    </div>`;
+  }).join('');
+
+  grid.querySelectorAll('.theme-item').forEach(el => {
+    el.addEventListener('click', () => {
+      state.theme = el.dataset.theme;
+      state.useCustomBg = false;
+      const tc = themeColors[state.theme];
+      if (tc) {
+        if (tc.bg) {
+          state.bgColor = tc.bg;
+          document.getElementById('bgColor').value = tc.bg;
+          document.getElementById('bgHex').value = tc.bg;
+        }
+        if (tc.fg) {
+          state.fgColor = tc.fg;
+          document.getElementById('fgColor').value = tc.fg;
+          document.getElementById('fgHex').value = tc.fg;
+        }
+      }
+      grid.querySelectorAll('.theme-item').forEach(e => e.classList.remove('active'));
+      el.classList.add('active');
+      updatePreview();
+    });
+  });
+}
+
+function setupListeners() {
+  const opacity = document.getElementById('opacity');
+  const blur = document.getElementById('blur');
+  const fontSize = document.getElementById('fontSize');
+  const fontFamily = document.getElementById('fontFamily');
+  const bgColor = document.getElementById('bgColor');
+  const bgHex = document.getElementById('bgHex');
+  const fgColor = document.getElementById('fgColor');
+  const fgHex = document.getElementById('fgHex');
+  const search = document.getElementById('themeSearch');
+  const autoMode = document.getElementById('autoMode');
+
+  opacity.addEventListener('input', () => {
+    state.opacity = opacity.value / 100;
+    document.getElementById('opacityVal').textContent = state.opacity.toFixed(2);
+    updatePreview();
+  });
+  blur.addEventListener('input', () => {
+    state.blur = parseInt(blur.value);
+    document.getElementById('blurVal').textContent = state.blur;
+  });
+  fontSize.addEventListener('input', () => {
+    state.fontSize = parseInt(fontSize.value);
+    document.getElementById('fontSizeVal').textContent = state.fontSize;
+    updatePreview();
+  });
+  fontFamily.addEventListener('change', () => {
+    state.fontFamily = fontFamily.value;
+    updatePreview();
+  });
+  bgColor.addEventListener('input', () => {
+    state.bgColor = bgColor.value; state.useCustomBg = true;
+    bgHex.value = bgColor.value; updatePreview();
+  });
+  bgHex.addEventListener('change', () => {
+    let v = bgHex.value.trim();
+    if (!v.startsWith('#')) v = '#' + v;
+    if (/^#[0-9a-fA-F]{6}$/.test(v)) {
+      state.bgColor = v; state.useCustomBg = true;
+      bgColor.value = v; updatePreview();
+    }
+  });
+  fgColor.addEventListener('input', () => {
+    state.fgColor = fgColor.value; fgHex.value = fgColor.value; updatePreview();
+  });
+  fgHex.addEventListener('change', () => {
+    let v = fgHex.value.trim();
+    if (!v.startsWith('#')) v = '#' + v;
+    if (/^#[0-9a-fA-F]{6}$/.test(v)) {
+      state.fgColor = v; fgColor.value = v; updatePreview();
+    }
+  });
+  search.addEventListener('input', () => {
+    const activeFilter = document.querySelector('.filter-btn.active').dataset.filter;
+    renderThemes(activeFilter, search.value);
+  });
+  document.querySelectorAll('.filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderThemes(btn.dataset.filter, search.value);
+    });
+  });
+  autoMode.addEventListener('change', () => {
+    if (autoMode.checked) startAutoMode();
+    else stopAutoMode();
+    localStorage.setItem('ghostty-auto-mode', autoMode.checked);
+  });
+  document.getElementById('darkPreset').addEventListener('change', () => {
+    localStorage.setItem('ghostty-dark-preset', document.getElementById('darkPreset').value);
+  });
+  document.getElementById('lightPreset').addEventListener('change', () => {
+    localStorage.setItem('ghostty-light-preset', document.getElementById('lightPreset').value);
+  });
+
+  // Restore auto mode state
+  if (localStorage.getItem('ghostty-auto-mode') === 'true') {
+    autoMode.checked = true;
+    startAutoMode();
+  }
+  document.getElementById('darkPreset').value = localStorage.getItem('ghostty-dark-preset') || '';
+  document.getElementById('lightPreset').value = localStorage.getItem('ghostty-light-preset') || '';
+}
+
+function updatePreview() {
+  const bg = document.getElementById('previewBg');
+  const content = document.getElementById('previewContent');
+  bg.style.background = state.bgColor;
+  bg.style.opacity = state.opacity;
+  content.style.color = state.fgColor;
+  content.style.fontSize = state.fontSize + 'px';
+  content.style.fontFamily = `"${state.fontFamily}", monospace`;
+}
+
+// ── API calls ──
+
+async function loadCurrentConfig() {
+  try {
+    const resp = await fetch('/api/config');
+    if (!resp.ok) return;
+    const cfg = await resp.json();
+    if (cfg.opacity !== undefined) {
+      state.opacity = cfg.opacity;
+      document.getElementById('opacity').value = Math.round(cfg.opacity * 100);
+      document.getElementById('opacityVal').textContent = cfg.opacity.toFixed(2);
+    }
+    if (cfg.blur !== undefined) {
+      state.blur = cfg.blur;
+      document.getElementById('blur').value = cfg.blur;
+      document.getElementById('blurVal').textContent = cfg.blur;
+    }
+    if (cfg.background) {
+      state.bgColor = '#' + cfg.background;
+      document.getElementById('bgColor').value = state.bgColor;
+      document.getElementById('bgHex').value = state.bgColor;
+    }
+    if (cfg.foreground) {
+      state.fgColor = '#' + cfg.foreground;
+      document.getElementById('fgColor').value = state.fgColor;
+      document.getElementById('fgHex').value = state.fgColor;
+    }
+    if (cfg.theme) state.theme = cfg.theme;
+    if (cfg.fontFamily) {
+      state.fontFamily = cfg.fontFamily;
+      document.getElementById('fontFamily').value = cfg.fontFamily;
+    }
+    if (cfg.fontSize) {
+      state.fontSize = cfg.fontSize;
+      document.getElementById('fontSize').value = cfg.fontSize;
+      document.getElementById('fontSizeVal').textContent = cfg.fontSize;
+    }
+    updatePreview();
+  } catch(e) { console.log('No backend, using defaults'); }
+}
+
+async function loadThemeColors() {
+  try {
+    const resp = await fetch('/api/theme-colors');
+    if (resp.ok) themeColors = await resp.json();
+  } catch(e) {}
+}
+
+async function loadPresets() {
+  try {
+    const resp = await fetch('/api/presets');
+    if (resp.ok) presets = await resp.json();
+    renderPresetBar();
+  } catch(e) {}
+}
+
+function renderPresetBar() {
+  const bar = document.getElementById('presetBar');
+  const names = Object.keys(presets);
+  bar.innerHTML = names.map(n =>
+    `<span class="preset-chip" data-name="${n}">
+      ${n}
+      <span class="delete-preset" data-name="${n}">&times;</span>
+    </span>`
+  ).join('');
+
+  bar.querySelectorAll('.preset-chip').forEach(el => {
+    el.addEventListener('click', (e) => {
+      if (e.target.classList.contains('delete-preset')) return;
+      applyPreset(el.dataset.name);
+    });
+  });
+  bar.querySelectorAll('.delete-preset').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      deletePreset(el.dataset.name);
+    });
+  });
+
+  // Update auto-mode selects
+  const darkSel = document.getElementById('darkPreset');
+  const lightSel = document.getElementById('lightPreset');
+  const darkVal = darkSel.value;
+  const lightVal = lightSel.value;
+  darkSel.innerHTML = '<option value="">Dark preset...</option>' +
+    names.map(n => `<option value="${n}">${n}</option>`).join('');
+  lightSel.innerHTML = '<option value="">Light preset...</option>' +
+    names.map(n => `<option value="${n}">${n}</option>`).join('');
+  darkSel.value = darkVal;
+  lightSel.value = lightVal;
+}
+
+function applyPreset(name) {
+  const p = presets[name];
+  if (!p) return;
+  Object.assign(state, p);
+  document.getElementById('opacity').value = Math.round(state.opacity * 100);
+  document.getElementById('opacityVal').textContent = state.opacity.toFixed(2);
+  document.getElementById('blur').value = state.blur;
+  document.getElementById('blurVal').textContent = state.blur;
+  document.getElementById('fontSize').value = state.fontSize;
+  document.getElementById('fontSizeVal').textContent = state.fontSize;
+  document.getElementById('fontFamily').value = state.fontFamily || '';
+  document.getElementById('bgColor').value = state.bgColor;
+  document.getElementById('bgHex').value = state.bgColor;
+  document.getElementById('fgColor').value = state.fgColor;
+  document.getElementById('fgHex').value = state.fgColor;
+  renderThemes();
+  updatePreview();
+  setStatus(`Loaded preset: ${name}`, 'ok');
+}
+
+async function savePreset() {
+  const name = document.getElementById('presetName').value.trim();
+  if (!name) { setStatus('Enter a preset name', 'err'); return; }
+  const preset = { ...state };
+  try {
+    const resp = await fetch('/api/presets/save', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, preset })
+    });
+    const r = await resp.json();
+    if (r.ok) {
+      presets[name] = preset;
+      renderPresetBar();
+      document.getElementById('presetName').value = '';
+      setStatus(`Saved preset: ${name}`, 'ok');
+    }
+  } catch(e) { setStatus('Failed to save preset', 'err'); }
+}
+
+async function deletePreset(name) {
+  try {
+    await fetch('/api/presets/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    delete presets[name];
+    renderPresetBar();
+    setStatus(`Deleted preset: ${name}`, 'ok');
+  } catch(e) {}
+}
+
+async function applyConfig() {
+  setStatus('Applying...', '');
+  try {
+    const resp = await fetch('/api/apply', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(state)
+    });
+    const result = await resp.json();
+    if (result.ok) setStatus('Applied + reloaded (backup saved)', 'ok');
+    else setStatus('Error: ' + result.error, 'err');
+  } catch(e) { setStatus('Server error', 'err'); }
+}
+
+async function resetToFile() {
+  await loadCurrentConfig();
+  renderThemes();
+  setStatus('Reset to saved config', 'ok');
+}
+
+function toggleConfig() {
+  const el = document.getElementById('configDisplay');
+  if (el.style.display === 'none' || !el.style.display) {
+    fetch('/api/config-raw').then(r => r.text()).then(t => {
+      el.textContent = t;
+      el.style.display = 'block';
+    }).catch(() => {
+      el.textContent = generateConfigText();
+      el.style.display = 'block';
+    });
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+async function toggleBackups() {
+  const el = document.getElementById('backupPanel');
+  if (el.style.display === 'none' || !el.style.display) {
+    try {
+      const resp = await fetch('/api/backups');
+      const backups = await resp.json();
+      if (!backups.length) {
+        el.innerHTML = '<span style="color:var(--text-dim)">No backups yet. Backups are created automatically when you Apply.</span>';
+      } else {
+        el.innerHTML = '<div class="backup-list">' + backups.map(b =>
+          `<div class="backup-item">
+            <span>${b.time}</span>
+            <button class="btn btn-sm btn-secondary" onclick="restoreBackup('${b.name}')">Restore</button>
+          </div>`
+        ).join('') + '</div>';
+      }
+      el.style.display = 'block';
+    } catch(e) { el.innerHTML = 'Failed to load backups'; el.style.display = 'block'; }
+  } else {
+    el.style.display = 'none';
+  }
+}
+
+async function restoreBackup(name) {
+  try {
+    const resp = await fetch('/api/restore', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name })
+    });
+    const r = await resp.json();
+    if (r.ok) {
+      await loadCurrentConfig();
+      renderThemes();
+      setStatus('Restored backup + reloaded', 'ok');
+    } else {
+      setStatus('Restore failed: ' + r.error, 'err');
+    }
+  } catch(e) { setStatus('Restore failed', 'err'); }
+}
+
+function generateConfigText() {
+  let lines = [];
+  lines.push(`theme = "${state.theme}"`);
+  if (state.useCustomBg) lines.push(`background = ${state.bgColor.replace('#','')}`);
+  lines.push(`foreground = ${state.fgColor.replace('#','')}`);
+  lines.push(`background-opacity = ${state.opacity.toFixed(2)}`);
+  lines.push(`background-blur-radius = ${state.blur}`);
+  lines.push(`font-family = "${state.fontFamily}"`);
+  lines.push(`font-size = ${state.fontSize}`);
+  return lines.join('\n');
+}
+
+// ── Auto dark/light mode ──
+
+function startAutoMode() {
+  if (autoModeInterval) return;
+  checkAndApplyAppearance();
+  autoModeInterval = setInterval(checkAndApplyAppearance, 10000);
+}
+
+function stopAutoMode() {
+  if (autoModeInterval) { clearInterval(autoModeInterval); autoModeInterval = null; }
+}
+
+async function checkAndApplyAppearance() {
+  try {
+    const resp = await fetch('/api/appearance');
+    const { mode } = await resp.json();
+    const presetName = mode === 'dark'
+      ? document.getElementById('darkPreset').value
+      : document.getElementById('lightPreset').value;
+    if (presetName && presets[presetName]) {
+      const p = presets[presetName];
+      if (p.theme !== state.theme || p.opacity !== state.opacity) {
+        applyPreset(presetName);
+        await applyConfig();
+      }
+    }
+  } catch(e) {}
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = 'status' + (type ? ' ' + type : '');
+  if (type) setTimeout(() => { el.textContent = ''; }, 3000);
+}
+</script>
+</body>
+</html>
