@@ -1,5 +1,8 @@
 {
-    "global": { "show_profile_name_in_menu_bar": true },
+    "global": {
+        "ask_for_confirmation_before_quitting": false,
+        "show_in_menu_bar": false
+    },
     "profiles": [
         {
             "complex_modifications": {
