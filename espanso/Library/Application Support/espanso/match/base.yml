@@ -1,40 +1,108 @@
-# espanso match file
-
-# For a complete introduction, visit the official docs at: https://espanso.org/docs/
-
-# You can use this file to define the base matches (aka snippets)
-# that will be available in every application when using espanso.
-
-# Matches are substitution rules: when you type the "trigger" string
-# it gets replaced by the "replace" string.
-
-# yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json
+# MacBook Pro M4 Max — Machine-Specific Espanso Additions
+# Universal triggers live in shared.yml
+# Updated: 2026-02-28
 
 matches:
-  # Simple text replacement
-  - trigger: ":espanso"
-    replace: "Hi there!"
 
-  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+  # ── Archive to CENT-VAULT ─────────────────────────
+  - trigger: ":arch"
+    replace: |
+      Compress the conversation Content in well structured Markdown format.
+      Validate the structure and format are consistent.
+      Add relevant tags in the form of #tag #tag2 #tag3 #tag4 based on the content.
+      Insert them at the bottom of the markdown along with timestamp  DD-MM-YYY and time.
 
-  # But matches can also be dynamic:
+      File Naming and Storage: Use @finder to handle file operations.
 
-  # Print the current date
-  - trigger: ":date"
-    replace: "{{mydate}}"
-    vars:
-      - name: mydate
-        type: date
-        params:
-          format: "%m/%d/%Y"
+      Use the alien emoji icon at the start of the name  you will generate.  Use decriptive title-name.
 
-  # Print the output of a shell command
-  - trigger: ":shell"
+      Move the file to the "~/Documents/CENT-VAULT/Chat_reports" folder. The folder exists - do not create it.
+
+      @finder
+      Confirm that the file has been created and stored in the correct folder with the correct naming format.
+
+  # ── Paths (M4) ────────────────────────────────────
+  - trigger: ":cdc"
+    replace: ~/Library/Application Support/Claude/claude_desktop_config.json
+  - trigger: ":ccli"
+    replace: ~/.config/claude-cli/claude_desktop_config.json
+  - trigger: ":clog"
+    replace: ~/Library/Logs/Claude/
+  - trigger: ":ghost"
+    replace: ~/Library/Application Support/com.mitchellh.ghostty/config
+  - trigger: ":lgp"
+    replace: ~/Documents/logseq_new/pages/
+  - trigger: ":cv"
+    replace: ~/Documents/CENT-VAULT/
+  - trigger: ":fbdeploy"
+    replace: firebase deploy --only hosting:my-firebase-ai-app-a7feb
+  - trigger: ":newmusic"
+    replace: ~/Music/new-in/
+  - trigger: ":aliases"
+    replace: nano ~/.oh-my-zsh/custom/aliases.zsh
+  - trigger: ":src"
+    replace: source ~/.zshrc
+  - trigger: ":espcfg"
+    replace: nvim ~/Library/Application\ Support/espanso/match/base.yml
+  - trigger: ":espconfig"
+    replace: cd ~/CODE/espanso-configurator/claude-3.5 && npm start
+
+  # ── Session Explorer MCP Config ───────────────────
+  - trigger: ":sexcfg"
+    replace: |
+      {
+          "mcpServers": {
+            "session-explorer": {
+              "command": "node",
+              "args": [
+                "~/Documents/Logseq_new/.session-explorer/packages/mcp-server/dist/index.js"
+              ],
+              "env": {
+                "DATABASE_PATH": "~/Documents/Logseq_new/.session-explorer/data/sessions.db"
+              }
+            }
+          }
+        }
+
+  # ── Navigation (M4) ──────────────────────────────
+  - trigger: cdlgs
+    replace: cd ~/CODE/LogShadow3
+  - trigger: lgj
+    replace: ~/Documents/Logseq_new/journals/
+  - trigger: lgcd
+    replace: cd ~/Documents/Logseq_new && claude --dangerously-skip-permissions
+  - trigger: cdlog
+    replace: cd /Users/nickcent/Documents/Logseq_new
+  - trigger: cdse
+    replace: cd /Users/nickcent/Documents/Logseq_new/.session-explorer
+  - trigger: cdkar
+    replace: cd ~/.config/karabiner/
+
+  # ── LM Studio Scripts (LM Studio at 100.77.240.83) ──
+  - trigger: ":10versions"
     replace: "{{output}}"
     vars:
+      - name: clipboard
+        type: clipboard
       - name: output
         type: shell
         params:
-          cmd: "echo 'Hello from your shell'"
-
-  # And much more! For more information, visit the docs: https://espanso.org/docs/
+          cmd: "~/Library/Application\\ Support/espanso/scripts/10versions.sh '{{clipboard}}'"
+  - trigger: ":fp"
+    replace: "{{output}}"
+    vars:
+      - name: clipboard
+        type: clipboard
+      - name: output
+        type: shell
+        params:
+          cmd: "~/Library/Application\\ Support/espanso/scripts/firstperson.sh '{{clipboard}}'"
+  - trigger: lqthink
+    replace: "{{output}}"
+    vars:
+      - name: clipboard
+        type: clipboard
+      - name: output
+        type: shell
+        params:
+          cmd: "~/Library/Application\\ Support/espanso/scripts/logseq_think.sh '{{clipboard}}'"
