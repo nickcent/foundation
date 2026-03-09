@@ -884,12 +884,12 @@
                     "type": "device_if"
                   },
                   {
-                    "name": "macropad_playback_layer",
+                    "name": "macropad_claudecode_layer",
                     "type": "variable_if",
                     "value": 1
                   }
                 ],
-                "description": "Playback Layer: Key1 tap=prev / hold=Synphaera radio",
+                "description": "Claude Code Layer: Key1 tap=Escape / hold=Superwhisper PTT (right_command)",
                 "from": {
                   "key_code": "escape"
                 },
@@ -899,12 +899,302 @@
                 },
                 "to_if_alone": [
                   {
-                    "shell_command": "/usr/bin/python3 /Users/nickcent/CODE/macrowhisper/scripts/iina-control.py prev"
+                    "key_code": "escape"
                   }
                 ],
                 "to_if_held_down": [
                   {
-                    "shell_command": "open -a IINA \"https://ice1.somafm.com/synphaera-128-mp3\""
+                    "key_code": "right_command"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key2 tap=2 / hold=/rewind↩",
+                "from": {
+                  "key_code": "tab"
+                },
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 250,
+                  "basic.to_if_held_down_threshold_milliseconds": 250
+                },
+                "to_if_alone": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "to_if_held_down": [
+                  {
+                    "shell_command": "osascript -e 'tell application \"System Events\" to keystroke \"/rewind\"' && osascript -e 'tell application \"System Events\" to key code 36'"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key3 tap=Return / hold=Bolt AI PTT (right_option+/, NVIDIA offline)",
+                "from": {
+                  "key_code": "delete_or_backspace"
+                },
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 250,
+                  "basic.to_if_held_down_threshold_milliseconds": 250
+                },
+                "to_after_key_up": [
+                  {
+                    "conditions": [
+                      {
+                        "name": "macropad_boltptt_held",
+                        "type": "variable_if",
+                        "value": 1
+                      }
+                    ],
+                    "key_code": "slash",
+                    "modifiers": [
+                      "right_option"
+                    ]
+                  },
+                  {
+                    "set_variable": {
+                      "name": "macropad_boltptt_held",
+                      "value": 0
+                    }
+                  }
+                ],
+                "to_if_alone": [
+                  {
+                    "key_code": "return_or_enter"
+                  }
+                ],
+                "to_if_held_down": [
+                  {
+                    "key_code": "slash",
+                    "modifiers": [
+                      "right_option"
+                    ],
+                    "repeat": false
+                  },
+                  {
+                    "set_variable": {
+                      "name": "macropad_boltptt_held",
+                      "value": 1
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → App Control",
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "type": "basic",
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "macropad_appcontrol_layer",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": "App"
+                    }
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → App Control",
+                "from": {
+                  "pointing_button": "button1"
+                },
+                "type": "basic",
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_variable": {
+                      "name": "macropad_appcontrol_layer",
+                      "value": 1
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": "App"
+                    }
+                  }
+                ]
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CW → Cmd+]",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CCW → Cmd+[",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_playback_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Playback Layer: Key1 tap=prev / hold=seek -25s",
+                "from": {
+                  "key_code": "escape"
+                },
+                "parameters": {
+                  "basic.to_if_alone_timeout_milliseconds": 250,
+                  "basic.to_if_held_down_threshold_milliseconds": 250
+                },
+                "to_if_alone": [
+                  {
+                    "shell_command": "$HOME/CORTX/scripts/iina-ctl prev"
+                  }
+                ],
+                "to_if_held_down": [
+                  {
+                    "shell_command": "$HOME/CORTX/scripts/iina-ctl seek -25"
                   }
                 ],
                 "type": "basic"
@@ -963,7 +1253,7 @@
                     "value": 1
                   }
                 ],
-                "description": "Playback Layer: Key3 tap=next / hold=Bassdrive radio",
+                "description": "Playback Layer: Key3 tap=next / hold=seek +25s",
                 "from": {
                   "key_code": "delete_or_backspace"
                 },
@@ -973,12 +1263,12 @@
                 },
                 "to_if_alone": [
                   {
-                    "shell_command": "/usr/bin/python3 /Users/nickcent/CODE/macrowhisper/scripts/iina-control.py next"
+                    "shell_command": "$HOME/CORTX/scripts/iina-ctl next"
                   }
                 ],
                 "to_if_held_down": [
                   {
-                    "shell_command": "open -a IINA \"http://ice.bassdrive.net:80/stream\""
+                    "shell_command": "$HOME/CORTX/scripts/iina-ctl seek 25"
                   }
                 ],
                 "type": "basic"
@@ -1000,7 +1290,7 @@
                     "value": 1
                   }
                 ],
-                "description": "Knob Press: Playback → Clipboard",
+                "description": "Knob Press: Playback → Claude Code",
                 "from": {
                   "key_code": "return_or_enter"
                 },
@@ -1012,21 +1302,15 @@
                     }
                   },
                   {
-                    "set_notification_message": {
-                      "id": "macropad_layer",
-                      "text": ""
-                    }
-                  },
-                  {
                     "set_variable": {
-                      "name": "macropad_clipboard_layer",
+                      "name": "macropad_claudecode_layer",
                       "value": 1
                     }
                   },
                   {
                     "set_notification_message": {
                       "id": "macropad_layer",
-                      "text": "Cut/Copy/Paste"
+                      "text": "Claude"
                     }
                   }
                 ],
@@ -1049,7 +1333,7 @@
                     "value": 1
                   }
                 ],
-                "description": "Knob Press: Playback → Clipboard",
+                "description": "Knob Press: Playback → Claude Code",
                 "from": {
                   "key_code": "return_or_enter"
                 },
@@ -1061,188 +1345,15 @@
                     }
                   },
                   {
-                    "set_notification_message": {
-                      "id": "macropad_layer",
-                      "text": ""
-                    }
-                  },
-                  {
                     "set_variable": {
-                      "name": "macropad_clipboard_layer",
+                      "name": "macropad_claudecode_layer",
                       "value": 1
                     }
                   },
                   {
                     "set_notification_message": {
                       "id": "macropad_layer",
-                      "text": "Cut/Copy/Paste"
-                    }
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 34960,
-                        "vendor_id": 4489
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "macropad_clipboard_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "Clipboard Layer: Key1 → Cut (Cmd+X)",
-                "from": {
-                  "key_code": "escape"
-                },
-                "to": [
-                  {
-                    "key_code": "x",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 34960,
-                        "vendor_id": 4489
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "macropad_clipboard_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "Clipboard Layer: Key2 → Copy (Cmd+C)",
-                "from": {
-                  "key_code": "tab"
-                },
-                "to": [
-                  {
-                    "key_code": "c",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 34960,
-                        "vendor_id": 4489
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "macropad_clipboard_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "Clipboard Layer: Key3 → Paste (Cmd+V)",
-                "from": {
-                  "key_code": "delete_or_backspace"
-                },
-                "to": [
-                  {
-                    "key_code": "v",
-                    "modifiers": [
-                      "left_command"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 34960,
-                        "vendor_id": 4489
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "macropad_clipboard_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "Knob Press: Clipboard → Base",
-                "from": {
-                  "key_code": "return_or_enter"
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "macropad_clipboard_layer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "macropad_layer",
-                      "text": ""
-                    }
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 34960,
-                        "vendor_id": 4489
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "macropad_clipboard_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "Knob Press: Clipboard → Base",
-                "from": {
-                  "pointing_button": "button1"
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "macropad_clipboard_layer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "macropad_layer",
-                      "text": ""
+                      "text": "Claude"
                     }
                   }
                 ],
@@ -1557,6 +1668,173 @@
                     "type": "device_if"
                   },
                   {
+                    "name": "macropad_appcontrol_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "App Control Layer: Key1 → Hide (Cmd+H)",
+                "from": {
+                  "key_code": "escape"
+                },
+                "to": [
+                  {
+                    "key_code": "h",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_appcontrol_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "App Control Layer: Key2 → Close (Cmd+W)",
+                "from": {
+                  "key_code": "tab"
+                },
+                "to": [
+                  {
+                    "key_code": "w",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_appcontrol_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "App Control Layer: Key3 → Quit (Cmd+Q)",
+                "from": {
+                  "key_code": "delete_or_backspace"
+                },
+                "to": [
+                  {
+                    "key_code": "q",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_appcontrol_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: App Control → Base",
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_appcontrol_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_appcontrol_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: App Control → Base",
+                "from": {
+                  "pointing_button": "button1"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_appcontrol_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
                     "name": "macropad_launcher_layer",
                     "type": "variable_unless",
                     "value": 1
@@ -1715,6 +1993,70 @@
                       "id": "macropad_layer",
                       "text": "WM"
                     }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_launcher_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Launcher Layer: Knob CW → Ctrl+Shift+= (grow window)",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "equal_sign",
+                    "modifiers": [
+                      "left_control",
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_launcher_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Launcher Layer: Knob CCW → Ctrl+Shift+- (shrink window)",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "hyphen",
+                    "modifiers": [
+                      "left_control",
+                      "left_shift"
+                    ]
                   }
                 ],
                 "type": "basic"
@@ -2233,51 +2575,11 @@
                   },
                   {
                     "name": "yjs_opt_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "from": {
-                  "key_code": "left_control",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "yjs_opt_layer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "yjs_layer",
-                      "text": ""
-                    }
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 10,
-                        "vendor_id": 21862
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "yjs_opt_layer",
                     "type": "variable_unless",
                     "value": 1
                   }
                 ],
+                "description": "LCtrl → Window Layer ON",
                 "from": {
                   "key_code": "left_control",
                   "modifiers": {
@@ -2321,51 +2623,11 @@
                   },
                   {
                     "name": "yjs_cmd_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "from": {
-                  "key_code": "left_option",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "yjs_cmd_layer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "yjs_layer",
-                      "text": ""
-                    }
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 10,
-                        "vendor_id": 21862
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "yjs_cmd_layer",
                     "type": "variable_unless",
                     "value": 1
                   }
                 ],
+                "description": "LOpt → AI Layer ON",
                 "from": {
                   "key_code": "left_option",
                   "modifiers": {
@@ -2391,6 +2653,90 @@
                     "set_notification_message": {
                       "id": "yjs_layer",
                       "text": "AI Layer ON"
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 10,
+                        "vendor_id": 21862
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "yjs_opt_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "LCtrl → Window Layer OFF",
+                "from": {
+                  "key_code": "left_control",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "yjs_opt_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "yjs_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 10,
+                        "vendor_id": 21862
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "yjs_cmd_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "LOpt → AI Layer OFF",
+                "from": {
+                  "key_code": "left_option",
+                  "modifiers": {
+                    "optional": [
+                      "any"
+                    ]
+                  }
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "yjs_cmd_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "yjs_layer",
+                      "text": ""
                     }
                   }
                 ],
@@ -2514,7 +2860,7 @@
                 ],
                 "description": "Almost Maximize",
                 "from": {
-                  "key_code": "delete_or_backspace"
+                  "key_code": "delete_forward"
                 },
                 "to": [
                   {
@@ -2642,16 +2988,16 @@
                     "value": 1
                   }
                 ],
-                "description": "Tile 2",
+                "description": "Snap Left Half (Shift+Ctrl+←)",
                 "from": {
                   "key_code": "r"
                 },
                 "to": [
                   {
-                    "key_code": "2",
+                    "key_code": "left_arrow",
                     "modifiers": [
-                      "left_option",
-                      "left_command"
+                      "left_shift",
+                      "left_control"
                     ]
                   }
                 ],
@@ -2802,16 +3148,16 @@
                     "value": 1
                   }
                 ],
-                "description": "Tile 3",
+                "description": "Snap Right Half (Shift+Ctrl+→)",
                 "from": {
                   "key_code": "t"
                 },
                 "to": [
                   {
-                    "key_code": "3",
+                    "key_code": "right_arrow",
                     "modifiers": [
-                      "left_option",
-                      "left_command"
+                      "left_shift",
+                      "left_control"
                     ]
                   }
                 ],
@@ -3350,6 +3696,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Spacebar → Right Cmd",
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
@@ -3377,6 +3724,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Q → Ctrl+Opt+Cmd+Q (AI command)",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
@@ -3533,6 +3881,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "A tap=Cmd+A / hold=Opt+A",
                 "from": {
                   "key_code": "a",
                   "modifiers": {
@@ -3545,6 +3894,7 @@
                   "basic.to_if_alone_timeout_milliseconds": 300,
                   "basic.to_if_held_down_threshold_milliseconds": 150
                 },
+                "to": [],
                 "to_if_alone": [
                   {
                     "key_code": "a",
@@ -3575,6 +3925,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Esc tap=Escape / hold=Opt+Q",
                 "from": {
                   "key_code": "escape",
                   "modifiers": {
@@ -3583,6 +3934,7 @@
                     ]
                   }
                 },
+                "to": [],
                 "to_if_alone": [
                   {
                     "key_code": "escape"
@@ -3610,6 +3962,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "S → Opt+S",
                 "from": {
                   "key_code": "s",
                   "modifiers": {
@@ -3640,6 +3993,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "D → Opt+D",
                 "from": {
                   "key_code": "d",
                   "modifiers": {
@@ -3670,6 +4024,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Z+Cmd → Cmd+Z (Undo)",
                 "from": {
                   "key_code": "z",
                   "modifiers": {
@@ -3703,6 +4058,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Z → Cmd+Shift+Z (Redo)",
                 "from": {
                   "key_code": "z",
                   "modifiers": {
@@ -3715,7 +4071,8 @@
                   {
                     "key_code": "z",
                     "modifiers": [
-                      "left_command"
+                      "left_command",
+                      "left_shift"
                     ]
                   }
                 ],
@@ -3733,6 +4090,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "X → Cmd+X (Cut)",
                 "from": {
                   "key_code": "x",
                   "modifiers": {
@@ -3763,6 +4121,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "C → Cmd+C (Copy)",
                 "from": {
                   "key_code": "c",
                   "modifiers": {
@@ -3793,6 +4152,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Keypad Period → Cmd+V (Paste)",
                 "from": {
                   "key_code": "keypad_period",
                   "modifiers": {
@@ -6446,6 +6806,29 @@
                   }
                 ],
                 "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "name": "w_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "W+B → Opt+Cmd+7 (14-inch)",
+                "from": {
+                  "key_code": "b"
+                },
+                "to": [
+                  {
+                    "key_code": "7",
+                    "modifiers": [
+                      "left_option",
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
               }
             ]
           },
@@ -6644,334 +7027,6 @@
                     "modifiers": [
                       "left_shift"
                     ]
-                  }
-                ],
-                "type": "basic"
-              }
-            ]
-          },
-          {
-            "description": "V-Layer: Numpad (7 8 9 / 4 5 6 - / 1 2 3 + / 0 . Enter)",
-            "manipulators": [
-              {
-                "conditions": [
-                  {
-                    "name": "f_movement_layer",
-                    "type": "variable_unless",
-                    "value": 1
-                  }
-                ],
-                "description": "V key activates numpad layer",
-                "from": {
-                  "key_code": "v"
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "v_layer",
-                      "value": 1
-                    }
-                  }
-                ],
-                "to_after_key_up": [
-                  {
-                    "set_variable": {
-                      "name": "v_layer",
-                      "value": 0
-                    }
-                  }
-                ],
-                "to_if_alone": [
-                  {
-                    "key_code": "v"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+U = 7",
-                "from": {
-                  "key_code": "u"
-                },
-                "to": [
-                  {
-                    "key_code": "7"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+I = 8",
-                "from": {
-                  "key_code": "i"
-                },
-                "to": [
-                  {
-                    "key_code": "8"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+O = 9",
-                "from": {
-                  "key_code": "o"
-                },
-                "to": [
-                  {
-                    "key_code": "9"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+J = 4",
-                "from": {
-                  "key_code": "j"
-                },
-                "to": [
-                  {
-                    "key_code": "4"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+K = 5",
-                "from": {
-                  "key_code": "k"
-                },
-                "to": [
-                  {
-                    "key_code": "5"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+L = 6",
-                "from": {
-                  "key_code": "l"
-                },
-                "to": [
-                  {
-                    "key_code": "6"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+M = 1",
-                "from": {
-                  "key_code": "m"
-                },
-                "to": [
-                  {
-                    "key_code": "1"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+Comma = 2",
-                "from": {
-                  "key_code": "comma"
-                },
-                "to": [
-                  {
-                    "key_code": "2"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+Period = 3",
-                "from": {
-                  "key_code": "period"
-                },
-                "to": [
-                  {
-                    "key_code": "3"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+H = . (decimal)",
-                "from": {
-                  "key_code": "h"
-                },
-                "to": [
-                  {
-                    "key_code": "period"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+N = 0",
-                "from": {
-                  "key_code": "n"
-                },
-                "to": [
-                  {
-                    "key_code": "0"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+P = +",
-                "from": {
-                  "key_code": "p"
-                },
-                "to": [
-                  {
-                    "key_code": "equal_sign",
-                    "modifiers": [
-                      "left_shift"
-                    ]
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+Semicolon = -",
-                "from": {
-                  "key_code": "semicolon"
-                },
-                "to": [
-                  {
-                    "key_code": "hyphen"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+Slash = Enter",
-                "from": {
-                  "key_code": "slash"
-                },
-                "to": [
-                  {
-                    "key_code": "return_or_enter"
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "name": "v_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "description": "V+Y = Backspace",
-                "from": {
-                  "key_code": "y"
-                },
-                "to": [
-                  {
-                    "key_code": "delete_or_backspace"
                   }
                 ],
                 "type": "basic"
@@ -8628,11 +8683,10 @@
             ]
           },
           {
-            "description": "C tap=c / hold=Cmd+Shift+C",
+            "description": "C tap=c / hold=Cmd+Shift+C (copy file path)",
             "manipulators": [
               {
-                "type": "basic",
-                "description": "C tap=c / hold=Cmd+Shift+C",
+                "description": "C tap=c / hold=Cmd+Shift+C (copy file path)",
                 "from": {
                   "key_code": "c"
                 },
@@ -8653,7 +8707,8 @@
                       "left_shift"
                     ]
                   }
-                ]
+                ],
+                "type": "basic"
               }
             ]
           }
@@ -9697,6 +9752,7 @@
       "name": "default",
       "selected": true,
       "virtual_hid_keyboard": {
+        "indicate_sticky_modifier_keys_state": false,
         "keyboard_type_v2": "ansi",
         "mouse_key_xy_scale": 200
       }
@@ -10498,6 +10554,226 @@
                     "type": "device_if"
                   },
                   {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key1 → Escape",
+                "from": {
+                  "key_code": "escape"
+                },
+                "to": [
+                  {
+                    "key_code": "escape"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key2 → 2",
+                "from": {
+                  "key_code": "tab"
+                },
+                "to": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key3 → Return",
+                "from": {
+                  "key_code": "delete_or_backspace"
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → Base",
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → Base",
+                "from": {
+                  "pointing_button": "button1"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CW → Cmd+]",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CCW → Cmd+[",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
                     "name": "macropad_playback_layer",
                     "type": "variable_if",
                     "value": 1
@@ -11138,6 +11414,126 @@
                       "id": "macropad_layer",
                       "text": "WM"
                     }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_launcher_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Launcher Layer: Knob CW → Ctrl+Shift+= (grow window)",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "equal_sign",
+                    "modifiers": [
+                      "left_control",
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_launcher_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Launcher Layer: Knob CCW → Ctrl+Shift+- (shrink window)",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "hyphen",
+                    "modifiers": [
+                      "left_control",
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_clipboard_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Clipboard Layer: Knob CW → Right Arrow",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_clipboard_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Clipboard Layer: Knob CCW → Left Arrow",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
                   }
                 ],
                 "type": "basic"
@@ -13371,7 +13767,7 @@
                     "value": 1
                   }
                 ],
-                "description": "W+U → Yabai move window to previous display",
+                "description": "W+U → Move window to previous display",
                 "from": {
                   "key_code": "u"
                 },
@@ -13390,7 +13786,7 @@
                     "value": 1
                   }
                 ],
-                "description": "W+I → Yabai move window to next display",
+                "description": "W+I → Move window to next display",
                 "from": {
                   "key_code": "i"
                 },
@@ -16088,11 +16484,10 @@
             ]
           },
           {
-            "description": "C tap=c / hold=Cmd+Shift+C",
+            "description": "C tap=c / hold=Cmd+Shift+C (copy file path)",
             "manipulators": [
               {
-                "type": "basic",
-                "description": "C tap=c / hold=Cmd+Shift+C",
+                "description": "C tap=c / hold=Cmd+Shift+C (copy file path)",
                 "from": {
                   "key_code": "c"
                 },
@@ -16113,7 +16508,8 @@
                       "left_shift"
                     ]
                   }
-                ]
+                ],
+                "type": "basic"
               }
             ]
           }
@@ -18096,6 +18492,226 @@
                     "type": "device_if"
                   },
                   {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key1 → Escape",
+                "from": {
+                  "key_code": "escape"
+                },
+                "to": [
+                  {
+                    "key_code": "escape"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key2 → 2",
+                "from": {
+                  "key_code": "tab"
+                },
+                "to": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key3 → Return",
+                "from": {
+                  "key_code": "delete_or_backspace"
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → Base",
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → Base",
+                "from": {
+                  "pointing_button": "button1"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CW → Cmd+]",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CCW → Cmd+[",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
                     "name": "macropad_playback_layer",
                     "type": "variable_if",
                     "value": 1
@@ -18750,6 +19366,126 @@
                       }
                     ],
                     "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_launcher_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Launcher Layer: Knob CW → Ctrl+Shift+= (grow window)",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "equal_sign",
+                    "modifiers": [
+                      "left_control",
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_launcher_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Launcher Layer: Knob CCW → Ctrl+Shift+- (shrink window)",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "hyphen",
+                    "modifiers": [
+                      "left_control",
+                      "left_shift"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_clipboard_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Clipboard Layer: Knob CW → Right Arrow",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "right_arrow"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_clipboard_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Clipboard Layer: Knob CCW → Left Arrow",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "left_arrow"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
                   }
                 ],
                 "description": "Knob CW: IINA Volume Up",
@@ -19203,6 +19939,7 @@
                     "value": 1
                   }
                 ],
+                "description": "LCtrl → Window Layer OFF",
                 "from": {
                   "key_code": "left_control",
                   "modifiers": {
@@ -19215,94 +19952,6 @@
                   {
                     "set_variable": {
                       "name": "yjs_opt_layer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "yjs_layer",
-                      "text": ""
-                    }
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 10,
-                        "vendor_id": 21862
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "yjs_opt_layer",
-                    "type": "variable_unless",
-                    "value": 1
-                  }
-                ],
-                "from": {
-                  "key_code": "left_control",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "yjs_opt_layer",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "yjs_cmd_layer",
-                      "value": 0
-                    }
-                  },
-                  {
-                    "set_notification_message": {
-                      "id": "yjs_layer",
-                      "text": "Window Layer ON"
-                    }
-                  }
-                ],
-                "type": "basic"
-              },
-              {
-                "conditions": [
-                  {
-                    "identifiers": [
-                      {
-                        "product_id": 10,
-                        "vendor_id": 21862
-                      }
-                    ],
-                    "type": "device_if"
-                  },
-                  {
-                    "name": "yjs_cmd_layer",
-                    "type": "variable_if",
-                    "value": 1
-                  }
-                ],
-                "from": {
-                  "key_code": "left_option",
-                  "modifiers": {
-                    "optional": [
-                      "any"
-                    ]
-                  }
-                },
-                "to": [
-                  {
-                    "set_variable": {
-                      "name": "yjs_cmd_layer",
                       "value": 0
                     }
                   },
@@ -19328,10 +19977,11 @@
                   },
                   {
                     "name": "yjs_cmd_layer",
-                    "type": "variable_unless",
+                    "type": "variable_if",
                     "value": 1
                   }
                 ],
+                "description": "LOpt → AI Layer OFF",
                 "from": {
                   "key_code": "left_option",
                   "modifiers": {
@@ -19344,19 +19994,13 @@
                   {
                     "set_variable": {
                       "name": "yjs_cmd_layer",
-                      "value": 1
-                    }
-                  },
-                  {
-                    "set_variable": {
-                      "name": "yjs_opt_layer",
                       "value": 0
                     }
                   },
                   {
                     "set_notification_message": {
                       "id": "yjs_layer",
-                      "text": "AI Layer ON"
+                      "text": ""
                     }
                   }
                 ],
@@ -19480,7 +20124,7 @@
                 ],
                 "description": "Almost Maximize",
                 "from": {
-                  "key_code": "delete_or_backspace"
+                  "key_code": "delete_forward"
                 },
                 "to": [
                   {
@@ -19608,16 +20252,16 @@
                     "value": 1
                   }
                 ],
-                "description": "Tile 2",
+                "description": "Snap Left Half (Shift+Ctrl+←)",
                 "from": {
                   "key_code": "r"
                 },
                 "to": [
                   {
-                    "key_code": "2",
+                    "key_code": "left_arrow",
                     "modifiers": [
-                      "left_option",
-                      "left_command"
+                      "left_shift",
+                      "left_control"
                     ]
                   }
                 ],
@@ -19768,16 +20412,16 @@
                     "value": 1
                   }
                 ],
-                "description": "Tile 3",
+                "description": "Snap Right Half (Shift+Ctrl+→)",
                 "from": {
                   "key_code": "t"
                 },
                 "to": [
                   {
-                    "key_code": "3",
+                    "key_code": "right_arrow",
                     "modifiers": [
-                      "left_option",
-                      "left_command"
+                      "left_shift",
+                      "left_control"
                     ]
                   }
                 ],
@@ -20256,6 +20900,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Spacebar → Right Cmd",
                 "from": {
                   "key_code": "spacebar",
                   "modifiers": {
@@ -20317,6 +20962,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Q → Ctrl+Opt+Cmd+Q (AI command)",
                 "from": {
                   "key_code": "q",
                   "modifiers": {
@@ -20442,6 +21088,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "A tap=Cmd+A / hold=Opt+A",
                 "from": {
                   "key_code": "a",
                   "modifiers": {
@@ -20454,6 +21101,7 @@
                   "basic.to_if_alone_timeout_milliseconds": 300,
                   "basic.to_if_held_down_threshold_milliseconds": 150
                 },
+                "to": [],
                 "to_if_alone": [
                   {
                     "key_code": "a",
@@ -20484,6 +21132,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "C → Cmd+C (Copy)",
                 "from": {
                   "key_code": "c",
                   "modifiers": {
@@ -20514,6 +21163,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "D → Opt+D",
                 "from": {
                   "key_code": "d",
                   "modifiers": {
@@ -20544,6 +21194,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Esc tap=Escape / hold=Opt+Q",
                 "from": {
                   "key_code": "escape",
                   "modifiers": {
@@ -20552,6 +21203,7 @@
                     ]
                   }
                 },
+                "to": [],
                 "to_if_alone": [
                   {
                     "key_code": "escape"
@@ -20579,6 +21231,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "S → Opt+S",
                 "from": {
                   "key_code": "s",
                   "modifiers": {
@@ -20609,6 +21262,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "X → Cmd+X (Cut)",
                 "from": {
                   "key_code": "x",
                   "modifiers": {
@@ -20639,6 +21293,7 @@
                     "type": "device_if"
                   }
                 ],
+                "description": "Z → Cmd+Shift+Z (Redo)",
                 "from": {
                   "key_code": "z",
                   "modifiers": {
@@ -20651,7 +21306,8 @@
                   {
                     "key_code": "z",
                     "modifiers": [
-                      "left_command"
+                      "left_command",
+                      "left_shift"
                     ]
                   }
                 ],
@@ -20674,6 +21330,7 @@
                     "value": 1
                   }
                 ],
+                "description": "Keypad Period → Cmd+V (Paste)",
                 "from": {
                   "key_code": "keypad_period",
                   "modifiers": {
@@ -25697,11 +26354,10 @@
             ]
           },
           {
-            "description": "C tap=c / hold=Cmd+Shift+C",
+            "description": "C tap=c / hold=Cmd+Shift+C (copy file path)",
             "manipulators": [
               {
-                "type": "basic",
-                "description": "C tap=c / hold=Cmd+Shift+C",
+                "description": "C tap=c / hold=Cmd+Shift+C (copy file path)",
                 "from": {
                   "key_code": "c"
                 },
@@ -25722,7 +26378,8 @@
                       "left_shift"
                     ]
                   }
-                ]
+                ],
+                "type": "basic"
               }
             ]
           }
@@ -27703,6 +28360,226 @@
           {
             "description": "3-Key Macropad (4489:34960) Window Management + Knob",
             "manipulators": [
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key1 → Escape",
+                "from": {
+                  "key_code": "escape"
+                },
+                "to": [
+                  {
+                    "key_code": "escape"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key2 → 2",
+                "from": {
+                  "key_code": "tab"
+                },
+                "to": [
+                  {
+                    "key_code": "2"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Key3 → Return",
+                "from": {
+                  "key_code": "delete_or_backspace"
+                },
+                "to": [
+                  {
+                    "key_code": "return_or_enter"
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → Base",
+                "from": {
+                  "key_code": "return_or_enter"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Knob Press: Claude Code → Base",
+                "from": {
+                  "pointing_button": "button1"
+                },
+                "to": [
+                  {
+                    "set_variable": {
+                      "name": "macropad_claudecode_layer",
+                      "value": 0
+                    }
+                  },
+                  {
+                    "set_notification_message": {
+                      "id": "macropad_layer",
+                      "text": ""
+                    }
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CW → Cmd+]",
+                "from": {
+                  "key_code": "right_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "close_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
+              {
+                "conditions": [
+                  {
+                    "identifiers": [
+                      {
+                        "product_id": 34960,
+                        "vendor_id": 4489
+                      }
+                    ],
+                    "type": "device_if"
+                  },
+                  {
+                    "name": "macropad_claudecode_layer",
+                    "type": "variable_if",
+                    "value": 1
+                  }
+                ],
+                "description": "Claude Code Layer: Knob CCW → Cmd+[",
+                "from": {
+                  "key_code": "left_arrow"
+                },
+                "to": [
+                  {
+                    "key_code": "open_bracket",
+                    "modifiers": [
+                      "left_command"
+                    ]
+                  }
+                ],
+                "type": "basic"
+              },
               {
                 "conditions": [
                   {
